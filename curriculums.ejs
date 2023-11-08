@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Curriculums</title>
+</head>
+<body>
+    <h1>Lista de Curriculums</h1>
+    <ul>
+        <% curriculums.forEach(function(curriculum) { %>
+            <li>
+                <strong>Nombre:</strong> <%= curriculum.nombre %><br>
+                <strong>Telefono:</strong> <%= curriculum.telefono %><br>
+                <strong>Email:</strong> <%= curriculum.email %><br>
+                <strong>Experiencia:</strong> <%= curriculum.experiencia %><br>
+                <strong>Habilidades:</strong> <%= curriculum.habilidades.join(', ') %><br>
+                <strong>Cargo:</strong> <%= curriculum.cargo %><br>
+                <strong>Educación:</strong> <%= curriculum.educacion.join(', ') %><br>
+                <strong>Idoneidad:</strong> <%= curriculum.idoneidad %><br>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
