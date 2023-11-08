@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Currículum</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"], button[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover, button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        .barra-educacion {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.barra-educacion input[type="text"],
+.barra-educacion input[type="number"] {
+    flex: 2;
+    margin-right: 10px;
+}
+
+.barra-educacion button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Registro de Currículum</h1>
+    <form id="registroForm" action="http://localhost:3000/api/registrar-curriculum" method="POST">
+        <label for="nombre">Nombres y Apellidos:</label>
+        <input type="text" id="nombre" minlength="15" name="nombre" required>
+
+        <label for="Datos de Contacto ">Datos de Contacto:</label>
+        <label for="telefono">Teléfono:</label>
+        <input type="telefono" id="telefono" name="telefono" maxlength="9" required>
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+
+
+        <label for="experiencia">Experiencia Profesional:</label>
+        <textarea id="experiencia" name="experiencia" minlength="30" rows="4" cols="50" required></textarea>
+
+        <label for="habilidades">Habilidades:</label>
+        <select id="habilidades" name="habilidades" multiple required>
+            <option value="sony vegas">Sony Vegas</option>
+            <option value="adobe photoshop">Adobe Photoshop</option>
+            <option value="adobe premiere">Adobe Premiere</option>
+            <option value="visual studio code">Visual Studio Code</option>
+            <option value="ruby">Ruby</option>
+            <option value="c++">C++</option>
+            <option value="java">Java</option>
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="c">C</option>
+            <option value="assembly">Assembly</option>
+            <option value="netbeans">NetBeans</option>
+            <option value="mongodb">MongoDB</option>
+            <option value="mysql">MySQL</option>
+        </select>
+        <label for="cargo">Cargo a Postular:</label>
+        <select id="cargo" name="cargo">
+            <option value="CTO">CTO (Liderazgo Ejecutivo)</option>
+            <option value="Gerente de TI">Gerente de TI (Generalista Tecnología)</option>
+            <option value="CISO">CISO (Seguridad)</option>
+            <option value="Gerente de Infraestructura de TI">Gerente de Infraestructura de TI (Infraestructura)</option>
+            <option value="Gerente de Arquitectura">Gerente de Arquitectura (Aplicación e Integración de Sistemas)</option>
+            <option value="Gerente de Desarrollo">Gerente de Desarrollo (Desarrollo)</option>
+            <option value="Gerente de Proyectos TI">Gerente de Proyectos TI (Proyectos)</option>
+        </select><br>
+        <label for="educacion">Formación Academica:</label>
+        <div id="contenedorEducacion">
+            <button type="button" id="agregarEducacionBtn">+</button>
+        </div>
+
+        <button type="submit" id="registrarBtn">Registrar Currículum</button>
+    </form>
+
+    <script>
+          const contenedorEducacion = document.getElementById("contenedorEducacion");
+  const agregarEducacionBtn = document.getElementById("agregarEducacionBtn");
+
+  agregarEducacionBtn.addEventListener("click", function() {
+    const nuevaBarraEducacion = document.createElement("div");
+    nuevaBarraEducacion.className = "barra-educacion";
+
+    const inputEducacion = document.createElement("input");
+    inputEducacion.type = "text";
+    inputEducacion.name = "educacion[]";
+    inputEducacion.placeholder = "Recinto de educación";
+    inputEducacion.required = true;
+
+    const inputIngreso = document.createElement("input");
+    inputIngreso.type = "number";
+    inputIngreso.name = "ingreso[]";
+    inputIngreso.placeholder = "Año de ingreso";
+    inputIngreso.required = true;
+
+    const inputEgreso = document.createElement("input");
+    inputEgreso.type = "number";
+    inputEgreso.name = "egreso[]";
+    inputEgreso.placeholder = "Año de egreso";
+    inputEgreso.required = true;
+
+    const botonEliminar = document.createElement("button");
+    botonEliminar.type = "button";
+    botonEliminar.textContent = "-";
+    botonEliminar.addEventListener("click", function() {
+        contenedorEducacion.removeChild(nuevaBarraEducacion);
+    });
+
+    nuevaBarraEducacion.appendChild(inputEducacion);
+    nuevaBarraEducacion.appendChild(inputIngreso);
+    nuevaBarraEducacion.appendChild(inputEgreso);
+    nuevaBarraEducacion.appendChild(botonEliminar);
+    contenedorEducacion.appendChild(nuevaBarraEducacion);
+});
+
+    </script>
+    <script src="newapp.js"></script>
+</body>
+</html>
